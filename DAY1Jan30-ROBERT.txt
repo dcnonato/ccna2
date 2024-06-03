@@ -180,31 +180,31 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10._.100.8 port 2000
+   ip source-address 10.51.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number _11
+  number 5111
 ephone-dn 2
-  number _22
+  number 5122
 ephone-dn 3
-  number _33
+  number 5133
 ephone-dn 4
-  number _44
+  number 5144
 ephone-dn 5
-  number _55
+  number 5155
 ephone-dn 6
-  number _66
+  number 5166
 ephone-dn 7
-  number _77
+  number 5177
 ephone-dn 8
-  number _88	
+  number 5188	
 Ephone 1
-  Mac-address ____.____.____
+  Mac-address 8478.ACED.5BB7
   type 8945
   button 1:1 2:3 3:2 4:4
   restart
 Ephone 2
-  Mac-address ____.____.____
+  Mac-address 2C54.2D0E.F827
   type 8945
   button 1:5 2:6 3:7 4:8
   restart  

@@ -24,6 +24,54 @@ web server runs on port 80
 
 net  use  s: \\10.k.1.10\c$
 
+!protect yours
+
+! give Edge internet access
+config t
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+end
+
+!block
+config t
+no ip access-list standard NOPORN1
+ip access-list standard NOPORN1
+deny 66.254.0.0 0.0.255.255
+deny 104.21.0.0 0.0.255.255
+deny 68.235.0.0 0.0.255.255
+deny 104.17.0.0 0.0.255.255
+deny 88.208.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group NOPORN1 in
+end
+
+!access list
+config t
+no ip access-list standard threesome
+ip access-list standard threesome
+deny 10.11.0.0 0.0.255.255
+deny 10.12.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.22.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255
+deny 10.32.0.0 0.0.255.255
+!deny 10.41.0.0 0.0.255.255
+deny 10.42.0.0 0.0.255.255
+deny 10.52.0.0 0.0.255.255
+!deny 10.61.0.0 0.0.255.255
+deny 10.62.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group threesome in
+end
+
+!remove access group
+int gi 0/0/1
+no ip access-group nootherside in
+end
+
 TASK3: When you become a Security Analyst:
 Learn to Block the IPaddress from 3 "BAD" countries:
 NorthKorea, RUSSIA, China.= where all the Best hackers live.
@@ -125,7 +173,7 @@ before: nmap -v 10.m.100.8
 @Cucm:
 config t
 int fa 0/0
- ip add 10.m.100.9 255.255.255.0 Secondary
+ ip add 10.51.100.9 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -133,13 +181,16 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host pc 10.m.1.10
-ip host cm 10.m.100.8
-ip host cm2 10.m.100.9
-ip host p1 10.m.100.101
-ip host p2 10.m.100.102
-ip host sw 10.m.1.4
-ip host ed 10.m.m.1
+ip host pc 10.51.1.10
+ip host cm 10.51.100.8
+ip host cm2 10.51.100.9
+ip host p1 10.51.100.101
+ip host p2 10.51.100.102
+ip host sw 10.51.1.4
+ip host ed 10.51.51.1
+ip host cm6 10.51.50.6
+ip host cm8 10.51.50.8
+end
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
@@ -152,6 +203,59 @@ Top 5 UTM: 1.FortinetFortigate:
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TASK8: CONGigure YOur first Packet Filter Firewall.
  FORMULA: "  Protocol    hacker   victim  Port "
@@ -199,6 +303,20 @@ nmap -v cm       nmap -v cm2
 22               443
 2000             23
 80               53
+
+NO IP access-list Extended fwpolicy2
+IP access-list Extended fwpolicy2
+ permit Tcp Any host cm Eq 80
+ permit Tcp Any host cm Eq 22
+ permit Tcp Any host cm Eq 443
+ permit Tcp Any host cm2 Eq 23
+permit Tcp Any host cm2 Eq 53
+ permit Tcp Any host cm2 Eq 443
+ do sh ip access-list fwpolicy1
+ Int Fa 0/0
+  ip access-group fwpolicy2 IN
+  end
+
 
 ex.2: Make a Firewall so that we can meet this fwpolicy3:
 cm is a ping,cucm/sccp,

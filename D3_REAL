@@ -1,0 +1,44 @@
+!CONFIGURING OSPF AND EIGRP IN REAL WORLD DEVICES
+
+!CORE
+router eigrp 51
+no auto-summary 
+network 10.51.100.0 0.0.0.255
+network 10.51.50.0 0.0.0.255 
+network 10.51.10.0 0.0.0.255
+network 10.51.1.0 0.0.0.255 
+network 10.51.51.0 0.0.0.255
+
+!CUCM
+router eigrp 51   
+no auto-summary 
+network 10.51.100.0 0.0.0.255
+
+!EDGE
+router eigrp 51
+no auto-summary 
+network 10.51.51.0 0.0.0.255
+
+!OSPF
+router ospf 1
+no auto-summary
+network 200.0.0.0 0.0.0.255 area 0
+network 51.0.0.1 0.0.0.0 area 0
+
+!CHECKING EIGRP
+show ip eigrp neighbor
+show ip eigrp topology
+show ip route eigrp
+
+!CHECKING OSPF
+show ip route ospf
+
+!EDGE
+!sh int gi 0/0/0 ==> k1 bw, k2 delay, k3 rely, k4 load, k5 mtu
+config t
+router ospf 1
+redistribute eigrp 51 subnets
+router eigrp 51 
+!redistribute ospf 1 Metric k1 k2 k3 k4 k5
+redistribute ospf 1 Metric 1000000 1 255 1 1500
+end

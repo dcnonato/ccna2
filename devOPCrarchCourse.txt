@@ -63,6 +63,10 @@ ex.1: show ip int brief
 #!/usr/bin/env python
 import cli
 
+cmd_1 = [
+"show ip int brief".
+]
+
 commands = [
     "show ip int brief",
 ]
@@ -99,16 +103,16 @@ ex.4: python configuration:
 #!/usr/bin/env python
 import cli
 
-rob_cm = '''hostname CSRPYTHON
+config_1 = '''hostname DRouter
 '''
 
-cli.configurep(rob_cm)
+cli.configurep(config_1)
 
 ex.5: Create 4 loopbacks:
 
 import cli
 
-hi_1 = '''hostname PYDEVOP_AKO
+config_2 = '''hostname mr_DCN
 int loop 9
 ip add 9.9.9.9 255.255.255.255
 int loop 8
@@ -118,7 +122,7 @@ ip add 7.7.7.7 255.255.255.255
 end
 '''
 
-cli.configurep(hi_1)
+cli.configurep(config_2)
 
 ex.6
 
@@ -154,16 +158,17 @@ headers:
 	Content-Type: application/yang-data+json
 
 GET:
-https://192.168.152.128/restconf/data/ietf-interfaces:interfaces
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native?depth=1
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native?depth=2
+https://192.168.102.7/restconf/data/ietf-interfaces:interfaces
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native?depth=1
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native?depth=2
 
 GET the hostname and version:
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/version
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/hostname
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/version
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/hostname
 
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/interface/Loopback=0
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/interface/Loopback=0
+https://192.168.102.7/restconf/data/ietf-interfaces:interfaces
 
 GET
 https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/license
